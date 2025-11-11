@@ -1,0 +1,7 @@
+##### Social Media Use in Youth Project
+##### Data Notes
+##### A file for internal project notes about the data
+##### First created 2025/10/20
+
+Since this project's purpose is for understanding reproducible research workflow options, no raw data is being used at this time.
+A data dictionary and simulated data set can be found in this folder of the project.
