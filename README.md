@@ -6,4 +6,4 @@ The purpose of this project is to run through some reproducible research workflo
 
 Presently, this project consists of a data dictionary and a simulated data set.
 
-This README will be updated as the project progresses. 
+This README will be updated as the project progresses.
