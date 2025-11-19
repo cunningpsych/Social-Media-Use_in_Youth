@@ -271,4 +271,5 @@ dat_sim %>% dplyr::select(age_sim:anxiety_2_sim) %>% summarytools::freq()
 dat_sim
 
 # Saving as a .csv file for preregistration and simulated analysis use
-write.csv(dat_sim, "C:/Users/natal/Dropbox/Social-Media-Use_in_Youth/Data/2025-11-11_youth-media-use_simulated-data.csv", row.names=FALSE)
+write.csv(dat_sim, "./Data/2025-11-13_youth-media-use_simulated-data.csv", row.names=FALSE)
+
