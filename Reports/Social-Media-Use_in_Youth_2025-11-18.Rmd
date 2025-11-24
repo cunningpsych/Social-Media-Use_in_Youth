@@ -24,11 +24,6 @@ affiliation:
   - id            : "2"
     institution   : "Konstanz Business School"
 
-authornote: |
-  Add complete departmental affiliations for each author here. Each new line herein must be indented, like this line.
-
-  Enter author note here.
-
 abstract: |
   One or two sentences providing a **basic introduction** to the field,  comprehensible to a scientist in any discipline.
   Two to three sentences of **more detailed background**, comprehensible  to scientists in related disciplines.
@@ -61,11 +56,11 @@ output            : papaja::apa6_pdf
 ```{r setup, include = FALSE}
 library(papaja)
 library(groundhog)
-groundhog.library(dplyr, "2025-04-02")
-groundhog.library(psych, "2025-04-02")
-groundhog.library(labelled, "2025-04-02")
-groundhog.library(ggplot2, "2025-04-02")
-groundhog.library(apaTables, "2025-04-02")
+library(dplyr)
+library(psych)
+library(labelled)
+library(ggplot2)
+library(apaTables)
 r_refs("r-references.bib")
 ```
 
@@ -81,23 +76,23 @@ names(dat)
 ```
 
 # Introduction
+
 Technology is rapidly advancing and becoming more accessible to the adolescents of ours and future generations. With this accessibility, the doors to social media access and use are wide open to youth. Additionally, mental health and behavioral issues among youth are being more widely addressed, and many claims have been made that social media, and media use in general, have negative effects on children's well-being. These technologies and media platforms will continue to evolve, and, therefore, it is becoming increasingly necessary to understand the psychological impacts of these growing entities on youth. The focus of this study is to use reproducible workflows to examine the relationship between social media use and mental health and behavioral outcomes, specifically impulsivity, depression, and anxiety, among a population of high-school aged youth. The three hypotheses tested are as follows:
 
-   * Social media use will be positively correlated with impulsivity, and higher use of social media will lead to higher levels of impulsivity.
- 
-   * Social media use will be positively correlated with feelings of depression, and higher use of social media will lead to higher levels of depression.
- 
-   * Social media use will be positively correlated with feelings of anxiety, and higher use of social media will lead to higher levels of anxiety.
-   
+-   Social media use will be positively correlated with impulsivity, and higher use of social media will lead to higher levels of impulsivity.
+
+-   Social media use will be positively correlated with feelings of depression, and higher use of social media will lead to higher levels of depression.
+
+-   Social media use will be positively correlated with feelings of anxiety, and higher use of social media will lead to higher levels of anxiety.
+
 To asses these, analyses were done on a simulated data set compiled referencing the data codebook from the 2023 Monitoring the Future Main Study, conducted on eighth and tenth grade participants by the University of Michigan. This study analyzed the relationships between social media use, impulsivity, depression, and anxiety using this simulated data to outline the procedure and method by which these research questions could be assessed in a reproducible manner.
 
 # Methods
-The current study was not preregistered and raw data was not collected or analyzed.
-Simulated data was created based on raw data from the 2023 study on eighth and tenth
-graders from the “Monitoring the Future” continuing study. Simulated data and code are
-available at [this hyperlink to the github repository](https://github.com/cunningpsych/Social-Media-Use_in_Youth).
+
+The current study was not preregistered and raw data was not collected or analyzed. Simulated data was created based on raw data from the 2023 study on eighth and tenth graders from the “Monitoring the Future” continuing study. Simulated data and code are available at [this hyperlink to the github repository](https://github.com/cunningpsych/Social-Media-Use_in_Youth).
 
 ## Participants
+
 ```{r demographics, include=FALSE}
 # recoding grade factors from (1,2) to (eighth grade, tenth grade) and creating percent objects for each grade
 dat <- mutate(dat, grade_sim = factor(grade_sim, levels = c(1,2),
@@ -154,6 +149,7 @@ apa_table(race_table_sim,
 ```
 
 ## Procedure
+
 ```{r recoding negatively keyed items, include=FALSE}
 
 # All negatively keyed items are within the depression scale
@@ -198,10 +194,11 @@ anxiety_alpha_value <- anxiety_alpha_results$total$std.alpha
 
 ```
 
-Due to the nature of the data being entirely simulated, using Cronbach's alpha values to assess the reliability of the social media use, impulsivity, depression, and anxiety measures are not particularly informative (alpha =`r round(smuse_alpha_value, digits=4)`, `r round(impulse_alpha_value, digits=4)`, `r round(depression_alpha_value, digits=4)`, `r round(anxiety_alpha_value, digits=4)` respectively). These values are not very promising in terms of the internal reliability of the measure scales, however, with the use of genuine raw data, we may observe results that lean more favorably.
+Due to the nature of the data being entirely simulated, using Cronbach's alpha values to assess the reliability of the social media use, impulsivity, depression, and anxiety measures are not particularly informative (alpha =`r round(smuse_alpha_value, digits=4)`, `r round(impulse_alpha_value, digits=4)`, `r round(depression_alpha_value, digits=4)`, `r round(anxiety_alpha_value, digits=4)` respectively). These values are not very promising in terms of the internal reliability of the measure scales, however, with the use of genuine raw data, we may observe more favorable results.
 
 # Results
-Given the bounds to work with raw data, I would plan to explore how social media use is related to impulsivity, depression, and anxiety among adolescents. With the simulated data, I was able to calculate Pearson's r correlations, conduct t-tests, and create regression models to connect the simulated social media use with each behavioral and mental health outcome and how each outcome differs between eighth and tenth graders. 
+
+Given the bounds to work with raw data, I would plan to explore how social media use is related to impulsivity, depression, and anxiety among adolescents. With the simulated data, I was able to calculate Pearson's r correlations, conduct t-tests, and create regression models to connect the simulated social media use with each behavioral and mental health outcome and how each outcome differs between eighth and tenth graders.
 
 ```{r correlations, include=FALSE}
 
@@ -222,7 +219,7 @@ smuse_anx_cor_pvalue <- smuse_anx_cor_results$p.value
 
 ```
 
-Simulated social media use and impulse control were found to be weakly negatively correlated with a p-value above 0.05, indicating that either the nature of the simulated data is not representative of authentic data or the hypothesis that social media use and impulsivity are positively correlated can likely be disproved (Pearson's r =   `r round(smuse_impulse_cor_value, digits = 3)`, p = `r round(smuse_impulse_cor_pvalue, digits = 3)`).
+For the sake of finding significance in the correlations between measures, 0.05 was use as a threshold for the p-values. Simulated social media use and impulse control were found to be weakly negatively correlated with a p-value above the threshold, indicating that either the nature of the simulated data is not representative of authentic data or the hypothesis that social media use and impulsivity are positively correlated can likely be disproved (Pearson's r = `r round(smuse_impulse_cor_value, digits = 3)`, p = `r round(smuse_impulse_cor_pvalue, digits = 3)`). Social media use and depression values were weakly positively correlated with a p-value above the threshold, indicating that while the correlation is positive, as predicted, it is not a strong relationship (Pearson's r = `r round(smuse_depression_cor_value, digits = 3)`, p = `r round(smuse_depression_cor_pvalue, digits=3)`). Lastly, it was found that social media use and anxiety are _______ correlated based on the simulated data,
 
 ```{r t tests, include=FALSE}
 
@@ -274,7 +271,6 @@ smuse_anx_reg_pvalue <- smuse_anx_reg_model$coefficients[,4]
 
 ```
 
-
 ```{r visualizations, echo=FALSE, fig.pos= "ht", out.width= "\\textwidth"}
 ggplot(dat, aes(x=smuse_means_sim, y=impulse_means_sim))+
   geom_point(alpha=.25, na.rm = TRUE)+
@@ -291,9 +287,7 @@ ggplot(dat, aes(x=depression_means_sim, y=impulse_means_sim))+
 
 ```
 
-
 # Discussion
-
 
 \newpage
 
