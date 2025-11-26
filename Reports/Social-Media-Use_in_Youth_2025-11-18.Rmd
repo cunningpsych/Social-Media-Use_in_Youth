@@ -12,7 +12,7 @@ author:
       - "Conceptualization"
       - "Writing - Original Draft Preparation"
       - "Writing - Review & Editing"
-  - name          : "Ernst-August Doelle"
+  - name          : "Reviewer"
     affiliation   : "1,2"
     role:
       - "Writing - Review & Editing"
@@ -22,23 +22,16 @@ affiliation:
   - id            : "1"
     institution   : "University of Minnesota"
   - id            : "2"
-    institution   : "Konstanz Business School"
+    institution   : "Other"
 
 abstract: |
-  One or two sentences providing a **basic introduction** to the field,  comprehensible to a scientist in any discipline.
-  Two to three sentences of **more detailed background**, comprehensible  to scientists in related disciplines.
-  One sentence clearly stating the **general problem** being addressed by  this particular study.
-  One sentence summarizing the main result (with the words "**here we show**" or their equivalent).
-  Two or three sentences explaining what the **main result** reveals in direct comparison to what was thought to be the case previously, or how the  main result adds to previous knowledge.
-  One or two sentences to put the results into a more **general context**.
-  Two or three sentences to provide a **broader perspective**, readily comprehensible to a scientist in any discipline.
+  Social media is becoming a new constant in the lives of high school youth, inducing worry among the public regarding the potential behavioral and mental health outcomes that social media use may have on adolescents. More research is required to fully understand the impact that social media use has on the adolescent brain and behavior, and should continue to be conducted as technology advances. This study looks at the relationship between social media and impulsivity, depression, and anxiety in high school youth through simulated data created by means of the 2023 Monitoring the Future continuing study conducted on eighth and tenth grade participants by the University of Michigan. Through the simulated data, it was found that there were no statistically significant relationships between social media use and the measured mental health and behavioral outcomes, nor was social media use seen as a predictor of these outcomes. However, with raw data, different results may be observed in these regards, and further analysis should be done on the raw data to assess these relationships.
   
   <!-- https://tinyurl.com/ybremelq -->
   
-keywords          : "keywords"
-wordcount         : "X"
-
-bibliography      : "r-references.bib"
+keywords          : "social media use, youth, mental health outcomes, behavioral outcomes"
+wordcount         : "1238"
+bibliography:       ["r-references.bib", "references.bib"]
 
 floatsintext      : yes
 linenumbers       : no
@@ -51,6 +44,7 @@ footnotelist      : no
 
 classoption       : "man"
 output            : papaja::apa6_pdf
+
 ---
 
 ```{r setup, include = FALSE}
@@ -61,6 +55,8 @@ library(psych)
 library(labelled)
 library(ggplot2)
 library(apaTables)
+library(tidyr)
+library(cowplot)
 r_refs("r-references.bib")
 ```
 
@@ -85,7 +81,7 @@ Technology is rapidly advancing and becoming more accessible to the adolescents 
 
 -   Social media use will be positively correlated with feelings of anxiety, and higher use of social media will lead to higher levels of anxiety.
 
-To asses these, analyses were done on a simulated data set compiled referencing the data codebook from the 2023 Monitoring the Future Main Study, conducted on eighth and tenth grade participants by the University of Michigan. This study analyzed the relationships between social media use, impulsivity, depression, and anxiety using this simulated data to outline the procedure and method by which these research questions could be assessed in a reproducible manner.
+To asses these, analyses were done on a simulated data set compiled referencing the data codebook from the 2023 Monitoring the Future Main Study, conducted on eighth and tenth grade participants by the University of Michigan (@monitori). This study analyzed the relationships between social media use, impulsivity, depression, and anxiety using this simulated data to outline the procedure and method by which these research questions could be assessed in a reproducible manner.
 
 # Methods
 
@@ -94,59 +90,97 @@ The current study was not preregistered and raw data was not collected or analyz
 ## Participants
 
 ```{r demographics, include=FALSE}
-# recoding grade factors from (1,2) to (eighth grade, tenth grade) and creating percent objects for each grade
+# recoding grade factors from (1,2) to (eighth grade, tenth grade) and creating objects for each grade
 dat <- mutate(dat, grade_sim = factor(grade_sim, levels = c(1,2),
                                       labels = c("Eighth Grade", "Tenth Grade")))
 
 summarytools::freq(dat$grade_sim)
-eighth_percent <- (nrow(filter(dat, grade_sim == "Eighth Grade"))/(nrow(dat))*100)
-tenth_percent <- (nrow(filter(dat, grade_sim == "Tenth Grade"))/(nrow(dat))*100)
 
-# recoding residence factors from (1,2,3) to (farm, country, citytown)
+grade_n <- ""
+grade_percent <- ""
+eighth_n <- sum(dat$grade_sim == "Eighth Grade")
+eighth_percent <- round(((eighth_n/nrow(dat))*100), digits = 2)
+tenth_n <- sum(dat$grade_sim == "Tenth Grade")
+tenth_percent <- round(((tenth_n/nrow(dat))*100), digits = 2)
+
+
+# recoding residence factors from (1,2,3) to (farm, country, citytown), creating objects
 dat <- mutate(dat, residence_sim = factor(residence_sim, levels = c(1,2,3),
                                           labels = c("Farm", "Country", "City")))
 summarytools::freq(dat$residence_sim)
 
+residence_n <- ""
+residence_percent <- ""
+farm_n <- nrow(filter(dat, residence_sim == "Farm"))
+country_n <- nrow(filter(dat, residence_sim == "Country"))
+city_n <- nrow(filter(dat, residence_sim == "City"))
+farm_percent <- round(((nrow(filter(dat, residence_sim == "Farm")))/(nrow(dat))*100), digits = 2)
+country_percent <- round(((nrow(filter(dat, residence_sim == "Country")))/(nrow(dat))*100), digits = 2)
+city_percent <- round(((nrow(filter(dat, residence_sim == "City")))/(nrow(dat))*100), digits = 2)
 
-# recoding sex factors from (1,2,3,4) to (male, female, other, prefer not to answer)
+
+# recoding sex factors from (1,2,3,4) to (male, female, other, prefer not to answer), creating objects
 dat <- mutate(dat, sex_sim = factor(sex_sim, levels = c(1,2,3,4),
                                     labels = c("Male","Female","Other","Prefer Not to Answer")))
 summarytools::freq(dat$sex_sim)
 
-# recoding race factors from (1,2,3) to (black, white, hispanic), creating a percent object for those who identify as white, and creating objects for each variable
+gender_n <- ""
+gender_percent <- ""
+female_n <- nrow(filter(dat, sex_sim == "Female"))
+male_n <- nrow(filter(dat, sex_sim == "Male"))
+other_n <- nrow(filter(dat, sex_sim == "Other"))
+pnta_n <- nrow(filter(dat, sex_sim == "Prefer Not to Answer"))
+female_percent <- round(((nrow(filter(dat,sex_sim == "Female")))/(nrow(dat))*100), digits = 2)
+male_percent <- round(((nrow(filter(dat, sex_sim == "Male")))/(nrow(dat))*100), digits = 2)
+other_percent <- round(((nrow(filter(dat, sex_sim == "Other")))/(nrow(dat))*100), digits = 2)
+pnta_percent <- round(((nrow(filter(dat, sex_sim == "Prefer Not to Answer")))/(nrow(dat))*100), digits = 2)
+
+
+# recoding race factors from (1,2,3) to (black, white, Hispanic), creating a percent object for those who identify as white, and creating objects for each variable
 dat <- mutate(dat, race_sim = factor(race_sim, levels = c(1,2,3),
                                      labels = c("Black","White","Hispanic")))
 summarytools::freq(dat$race_sim)
 
-black_percent <- (nrow(filter(dat, race_sim == "Black"))/(nrow(dat))*100)
-white_percent <- (nrow(filter(dat, race_sim == "White"))/(nrow(dat))*100)
-hispanic_percent <- (nrow(filter(dat, race_sim == "Hispanic"))/(nrow(dat))*100)
-
-black_pop <- nrow(filter(dat, race_sim == "Black"))
-white_pop <- nrow(filter(dat, race_sim == "White"))
-hispanic_pop <- nrow(filter(dat, race_sim == "Hispanic"))
+race_n <- ""
+race_percent <- ""
+black_n <- nrow(filter(dat, race_sim == "Black"))
+white_n <- nrow(filter(dat, race_sim == "White"))
+hispanic_n <- nrow(filter(dat, race_sim == "Hispanic"))
+black_percent <- round(((nrow(filter(dat, race_sim == "Black")))/(nrow(dat))*100), digits = 2)
+white_percent <- round(((nrow(filter(dat, race_sim == "White")))/(nrow(dat))*100), digits = 2)
+hispanic_percent <-round(((nrow(filter(dat, race_sim == "Hispanic")))/(nrow(dat))*100), digits = 2)
 ```
 
-The sample used in this current study is a simulated data set based on the 2023 data codebook from the "Monitoring the Future" continuing study of different aspects and behaviors of high school students. The original data set consisted of `r nrow(dat)` participants in either eighth or tenth grade. The simulated data set, in turn, also included `r nrow(dat)` simulated participants, with `r round(white_percent, digits=2)`% identifying as white, `r round(eighth_percent, digits=2)`% in eighth grade, and `r round(tenth_percent, digits=2)`% in tenth grade.
+```{r demographics table, echo=FALSE}
 
-```{r demographics table, include=FALSE}
 # making the table
-race_table_sim <- dplyr::tribble(
-  ~"Racial Group", ~"n", ~"Percentage",
-  "Black", black_pop, black_percent,
-  "White", white_pop, white_percent,
-  "Hispanic", hispanic_pop, hispanic_percent)
+dem_table_sim <- dplyr::tribble(
+  ~"Category", ~"n", ~"%",
+  "Race", race_n, race_percent,
+  "    Black", as.factor(black_n), as.factor(black_percent),
+  "    White", as.factor(white_n), as.factor(white_percent),
+  "    Hispanic", as.factor(hispanic_n), as.factor(hispanic_percent),
+  "Gender", gender_n, gender_percent,
+  "    Female", as.factor(female_n), as.factor(female_percent),
+  "    Male", as.factor(male_n), as.factor(male_percent),
+  "    Other", as.factor(other_n), as.factor(other_percent),
+  "    Prefer Not to Answer", as.factor(pnta_n), as.factor(pnta_percent),
+  "Grade Level", grade_n, grade_percent,
+  "    Eighth Grade", as.factor(eighth_n), as.factor(eighth_percent),
+  "    Tenth Grade", as.factor(tenth_n), as.factor(tenth_percent),
+  "Residence", residence_n, residence_percent,
+  "    Farm", as.factor(farm_n), as.factor(farm_percent),
+  "    Country", as.factor(country_n), as.factor(country_percent),
+  "    City", as.factor(city_n), as.factor(city_percent))
 
-# making the table a dat frame
-data.frame(race_table_sim)
-
-
-# formatting the table according to APA guidelines
-apa_table(race_table_sim,
+# formatting the table according to APA guidelines using the built in function
+apa_table(dem_table_sim,
           caption = "Demographics", align = c("l","c","c"),
-          placement = "h",
-          note = "From simulated sample population")
+          note = "From simulated sample population. N = 14,734")
+
 ```
+
+The sample used in this current study is a simulated data set based on the 2023 data codebook from the "Monitoring the Future" continuing study of different aspects and behaviors of high school students @miecha. The original data set consisted of `r nrow(dat)` participants in either eighth or tenth grade. The simulated data set, in turn, also included `r nrow(dat)` simulated participants, with `r round(white_percent, digits=2)`% identifying as white, `r round(eighth_percent, digits=2)`% in eighth grade, and `r round(tenth_percent, digits=2)`% in tenth grade.
 
 ## Procedure
 
@@ -194,7 +228,7 @@ anxiety_alpha_value <- anxiety_alpha_results$total$std.alpha
 
 ```
 
-Due to the nature of the data being entirely simulated, using Cronbach's alpha values to assess the reliability of the social media use, impulsivity, depression, and anxiety measures are not particularly informative (alpha =`r round(smuse_alpha_value, digits=4)`, `r round(impulse_alpha_value, digits=4)`, `r round(depression_alpha_value, digits=4)`, `r round(anxiety_alpha_value, digits=4)` respectively). These values are not very promising in terms of the internal reliability of the measure scales, however, with the use of genuine raw data, we may observe more favorable results.
+All demographics and measures were simulated in accordance with the codebook provided on the Monitoring the Future website @miechb. The codebook additionally provided the distributions for all recorded variables, which was used to determine scoring distributions for each simulated measure. Due to the nature of the data being entirely simulated, using Cronbach's alpha values to assess the reliability of the social media use, impulsivity, depression, and anxiety measures are not particularly informative (alpha =`r round(smuse_alpha_value, digits=4)`, `r round(impulse_alpha_value, digits=4)`, `r round(depression_alpha_value, digits=4)`, `r round(anxiety_alpha_value, digits=4)` respectively). These values are not very promising in terms of the internal reliability of the measure scales, however, with the use of genuine raw data, we may observe more favorable results.
 
 # Results
 
@@ -219,7 +253,7 @@ smuse_anx_cor_pvalue <- smuse_anx_cor_results$p.value
 
 ```
 
-For the sake of finding significance in the correlations between measures, 0.05 was use as a threshold for the p-values. Simulated social media use and impulse control were found to be weakly negatively correlated with a p-value above the threshold, indicating that either the nature of the simulated data is not representative of authentic data or the hypothesis that social media use and impulsivity are positively correlated can likely be disproved (Pearson's r = `r round(smuse_impulse_cor_value, digits = 3)`, p = `r round(smuse_impulse_cor_pvalue, digits = 3)`). Social media use and depression values were weakly positively correlated with a p-value above the threshold, indicating that while the correlation is positive, as predicted, it is not a strong relationship (Pearson's r = `r round(smuse_depression_cor_value, digits = 3)`, p = `r round(smuse_depression_cor_pvalue, digits=3)`). Lastly, it was found that social media use and anxiety are _______ correlated based on the simulated data,
+For the sake of finding significance in the correlations between measures, 0.05 was use as a threshold for the p-values. Simulated social media use and impulse control were found to be weakly negatively correlated with a p-value above the threshold, indicating that either the nature of the simulated data is not representative of authentic data or the hypothesis that social media use and impulsivity are positively correlated can likely be disproved (Pearson's r = `r round(smuse_impulse_cor_value, digits = 3)`, *p* = `r round(smuse_impulse_cor_pvalue, digits = 3)`). Social media use and depression values were weakly positively correlated with a p-value above the threshold, indicating that while the correlation is positive, as predicted, it is not a strong relationship (Pearson's r = `r round(smuse_depression_cor_value, digits = 4)`, *p* = `r round(smuse_depression_cor_pvalue, digits=3)`). Lastly, it was found that social media use and anxiety are weakly negatively correlated based on the simulated data, also indicating a weak relationship that can disprove the hypothesis formed for social media use and anxiety or an inaccurate representation of how the measures can be seen using raw data and participants (Pearson's r = `r smuse_anx_cor_value`, *p* = `r round(smuse_anx_cor_pvalue, digits=3)`).
 
 ```{r t tests, include=FALSE}
 
@@ -254,40 +288,54 @@ anxiety_t_means <- anxiety_t_test$estimate
 
 ```
 
+T-tests were performed to compare how participants scored on social media use, impulsivity, depression, and anxiety scales based on grade level. Most items were scored on a scale from 1 to 5, with 1 being lower levels of the measure and 5 being high levels of the measure. For social media use, there was not a particularly large observed difference between how eighth and tenth graders were scoring, with the average groups means at `r round(smuse_t_means, digits=4)` for eighth and tenth grade, respectively (t-statistic = `r smuse_t_value`, *p* = `r smuse_t_pvalue`). Similar results were found for impulsivity, and while the difference between the grade levels was found to be higher, the average scores were also quite similar, at `r impulse_t_means` for eighth and tenth grade, and the p-value denoted a lack of significance (t-statistic = `r impulse_t_value`, *p* = `r impulse_t_pvalue`). The depression measure also saw comparable results, with average scores of `r depression_t_means` (t-statistic = `r depression_t_value`, *p* = `r depression_t_pvalue`). Comparing the grade levels on the anxiety measure again saw similar group means for the measure separated by grade, with eighth and tenth graders averaging scores of `r anxiety_t_means`, respectively (t-statistic = `r anxiety_t_value`, *p* = `r anxiety_t_pvalue`). Overall, these results showed very little difference between how eighth and tenth graders scored on any of the simulated behavioral or mental health measures.
+
 ```{r regression analyses, include=FALSE}
 # the regression models will be to assess whether social media use could predict the mental health and behavioral outcomes that were measured
 
 # social media use on impulsivity
 smuse_impulse_reg_model <- summary(lm(impulse_means_sim~smuse_means_sim, data = dat))
-smuse_impulse_reg_pvalue <- smuse_impulse_reg_model$coefficients[, 4]
+smuse_impulse_reg_value <- smuse_impulse_reg_model$coefficients[2,1]
+smuse_impulse_reg_pvalue <- smuse_impulse_reg_model$coefficients[2, 4]
 
 # social media use on depression
 smuse_depression_reg_model <- summary(lm(depression_means_sim~smuse_means_sim, data = dat))
-smuse_depression_reg_pvalue <- smuse_depression_reg_model$coefficients[,4]
+smuse_depression_reg_value <- smuse_depression_reg_model$coefficients[2,1]
+smuse_depression_reg_pvalue <- smuse_depression_reg_model$coefficients[2,4]
 
 # social media use on anxiety
 smuse_anx_reg_model <- summary(lm(anxiety_means_sim~smuse_means_sim, data = dat))
-smuse_anx_reg_pvalue <- smuse_anx_reg_model$coefficients[,4]
+smuse_anx_reg_value <- smuse_anx_reg_model$coefficients[2,1]
+smuse_anx_reg_pvalue <- smuse_anx_reg_model$coefficients[2,4]
 
 ```
 
-```{r visualizations, echo=FALSE, fig.pos= "ht", out.width= "\\textwidth"}
-ggplot(dat, aes(x=smuse_means_sim, y=impulse_means_sim))+
-  geom_point(alpha=.25, na.rm = TRUE)+
-  geom_smooth(formula = y~x, method = "lm", na.rm = TRUE)+
-  theme_apa()+
-  labs(title= "Relationship between Social Media Use and Impulsivity", x="Social Media Use", y="Impulsivity")
+```{r box plot, echo=FALSE, warning=FALSE}
+knitr::opts_chunk$set(fig.align = 'left')
+# making a data frame for how eighth graders scored on each measure
+df <- data.frame(na.rm = FALSE,
+  group_variable = rep(c("Social Media Use", "Impulsivity", "Depression", "Anxiety")),
+  values = c(smuse_scale_sim$smuse_means_sim, impulse_scale_sim$impulse_means_sim, depression_scale_sim$depression_means_sim, anxiety_scale_sim$anxiety_means_sim)
+)
 
-ggplot(dat, aes(x=depression_means_sim, y=impulse_means_sim))+
-  geom_point(alpha=.25, na.rm=TRUE)+
-  geom_smooth(formula = y~x, method = "lm", na.rm = TRUE)+
-  theme_apa()+
-  labs(title= "Relationship between Impulsivity and Depression", x="Depression", y="Impulsivity")
+# making the boxplot for eighth grade
+plot_colors <- c("#F8766D","#7CAE00","#00BFC4","#C77CFF")
+boxplot <- ggplot(df, aes(x = NULL, y = values, fill = group_variable), na.rm = FALSE)+
+  geom_boxplot()+
+  scale_fill_manual(values = plot_colors)+
+  labs(title = "Average Outcome Scores", x = "Outcome Measure", y = "Average Scores", fill = NULL)+
+  theme_apa()
+boxplot
 
 
 ```
+
+Regression models were the last phase of analyses performed, used to assess whether social media use could predict the mental health and behavioral outcomes of impulsivity, depression, and anxiety, that were measured. Based on the simulated data analyses, social media use was found to not be a possible predictor or impulsivity, depression, or anxiety, although we may expect to see different results using raw data. For social media use as a predictor of impulsivity, the regression coefficient was `r sprintf("%.4f", smuse_impulse_reg_value)` (*p* = `r smuse_impulse_reg_pvalue`). Regarding social media use as a predictor of depression, the regression coefficient was `r smuse_depression_reg_value` (*p* = `r smuse_depression_reg_pvalue`). For the last of the models, social media use was analyzed as a predictor of anxiety, of which the regression coefficient was `r smuse_anx_reg_value` (*p* = `r smuse_anx_reg_pvalue`).
+Overall, from analyzing simulated data of the observed measures, no significant relationships were found between youth social media use and impulsivity, depression, or anxiety, and no significant differences were found between how eighth and tenth grade participants scored on the measures.
 
 # Discussion
+
+The purpose of this study was to mimic the workflow involved in creating reproducible research projects. All analyses were done using simulated data, so results are not representative of the true relationships between these variables that is observed in the raw data from 2023. However, through the simulated analyses, no significant relationships between social media use and impulsivity, depression, or anxiety were noted, nor was a difference found between how eighth and tenth grade participants score on any of the observed measures. Therefore, none of the study hypotheses were supported by the simulated data.
 
 \newpage
 
