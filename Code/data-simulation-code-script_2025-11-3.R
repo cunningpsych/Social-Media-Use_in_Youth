@@ -27,7 +27,7 @@ set.seed(2005)
 #### Data Simulation ####
 
 # Reading in the data dictionary to reference for creating different items in the simulated data set
-dict <- read.csv("/Users/natal/Dropbox/Social-Media-Use_in_Youth/Data/2025-10-29_youth-media-use_data-dictionary.csv")
+dict <- read.csv("./Data/2025-10-29_youth-media-use_data-dictionary.csv")
 
 # Creating an empty data frame and populate with id variable based on 14,734 subjects
 
