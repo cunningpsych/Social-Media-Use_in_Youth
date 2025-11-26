@@ -30,7 +30,7 @@ abstract: |
   <!-- https://tinyurl.com/ybremelq -->
   
 keywords          : "social media use, youth, mental health outcomes, behavioral outcomes"
-wordcount         : "1238"
+wordcount         : "1261"
 bibliography:       ["r-references.bib", "references.bib"]
 
 floatsintext      : yes
@@ -228,7 +228,7 @@ anxiety_alpha_value <- anxiety_alpha_results$total$std.alpha
 
 ```
 
-All demographics and measures were simulated in accordance with the codebook provided on the Monitoring the Future website @miechb. The codebook additionally provided the distributions for all recorded variables, which was used to determine scoring distributions for each simulated measure. Due to the nature of the data being entirely simulated, using Cronbach's alpha values to assess the reliability of the social media use, impulsivity, depression, and anxiety measures are not particularly informative (alpha =`r round(smuse_alpha_value, digits=4)`, `r round(impulse_alpha_value, digits=4)`, `r round(depression_alpha_value, digits=4)`, `r round(anxiety_alpha_value, digits=4)` respectively). These values are not very promising in terms of the internal reliability of the measure scales, however, with the use of genuine raw data, we may observe more favorable results.
+All demographics and measures were simulated in accordance with the codebook provided on the Monitoring the Future website @miechb. The codebook additionally provided the distributions for all recorded variables, which was used to determine scoring distributions for each simulated measure. For the sake of creating scales for outcome measures, a numerical scale was created, with higher values indicating higher levels of each outcome. Due to the nature of the data being entirely simulated, using Cronbach's alpha values to assess the reliability of the social media use, impulsivity, depression, and anxiety measures are not particularly informative (alpha =`r round(smuse_alpha_value, digits=4)`, `r round(impulse_alpha_value, digits=4)`, `r round(depression_alpha_value, digits=4)`, `r round(anxiety_alpha_value, digits=4)` respectively). These values are not very promising in terms of the internal reliability of the measure scales, however, with the use of genuine raw data, we may observe more favorable results.
 
 # Results
 
