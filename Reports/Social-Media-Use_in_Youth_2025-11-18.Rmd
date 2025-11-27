@@ -31,7 +31,7 @@ abstract: |
   
 keywords          : "social media use, youth, mental health outcomes, behavioral outcomes"
 wordcount         : "1261"
-bibliography:       ["r-references.bib", "references.bib"]
+bibliography      : ["references.bib", "r-references.bib"]
 
 floatsintext      : yes
 linenumbers       : no
@@ -56,7 +56,6 @@ library(labelled)
 library(ggplot2)
 library(apaTables)
 library(tidyr)
-library(cowplot)
 r_refs("r-references.bib")
 ```
 
