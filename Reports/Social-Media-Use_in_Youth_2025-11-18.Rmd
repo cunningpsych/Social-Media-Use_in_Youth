@@ -31,7 +31,7 @@ abstract: |
   
 keywords          : "social media use, youth, mental health outcomes, behavioral outcomes"
 wordcount         : "1261"
-bibliography      : ["references.bib", "r-references.bib"]
+bibliography      : r-references.bib
 
 floatsintext      : yes
 linenumbers       : no
@@ -43,8 +43,7 @@ tablelist         : no
 footnotelist      : no
 
 classoption       : "man"
-output            : papaja::apa6_pdf
-
+output            : papaja::apa6_word
 ---
 
 ```{r setup, include = FALSE}
@@ -72,15 +71,11 @@ names(dat)
 
 # Introduction
 
-Technology is rapidly advancing and becoming more accessible to the adolescents of ours and future generations. With this accessibility, the doors to social media access and use are wide open to youth. Additionally, mental health and behavioral issues among youth are being more widely addressed, and many claims have been made that social media, and media use in general, have negative effects on children's well-being. These technologies and media platforms will continue to evolve, and, therefore, it is becoming increasingly necessary to understand the psychological impacts of these growing entities on youth. The focus of this study is to use reproducible workflows to examine the relationship between social media use and mental health and behavioral outcomes, specifically impulsivity, depression, and anxiety, among a population of high-school aged youth. The three hypotheses tested are as follows:
+Technology is rapidly advancing and becoming more accessible to the adolescents of ours and future generations. With this accessibility, the doors to social media access and use are wide open to youth. Simultaneously, however, mental health and behavioral issues among youth are being more widely addressed. Many claims have been made that social media, and media use in general, have negative effects on children's well-being. New trends related to parenting methods with regards to technology access are widespread, and concern grows as younger and younger generations seem to be awarded access to technologies that appear to be harmful. These technologies and media platforms will continue to evolve, and, therefore, it is becoming increasingly necessary to understand the psychological impacts of these growing entities on youth. For the sake of this notion, I analyzed how social media use parallels adolescent levels of mental health and behavioral outcomes, specifically impulsivity, depression, and anxiety. The focus of this study is to use reproducible workflows to examine these relationship among a population of high-school aged youth.
 
--   Social media use will be positively correlated with impulsivity, and higher use of social media will lead to higher levels of impulsivity.
+Three hypotheses were created for how I expected social media use to impact impulsivity, depression, and anxiety in the surveyed participants. All three hypotheses infer that social media use will be positively correlated with each outcome, respectively, so higher use of social media will correspond with higher levels of impulsivity, depression, and anxiety.
 
--   Social media use will be positively correlated with feelings of depression, and higher use of social media will lead to higher levels of depression.
-
--   Social media use will be positively correlated with feelings of anxiety, and higher use of social media will lead to higher levels of anxiety.
-
-To asses these, analyses were done on a simulated data set compiled referencing the data codebook from the 2023 Monitoring the Future Main Study, conducted on eighth and tenth grade participants by the University of Michigan (@monitori). This study analyzed the relationships between social media use, impulsivity, depression, and anxiety using this simulated data to outline the procedure and method by which these research questions could be assessed in a reproducible manner.
+To asses these, analyses were done on a simulated data set compiled referencing the data codebook from the 2023 Monitoring the Future Main Study, conducted on eighth and tenth grade participants by the University of Michigan [insert citation]. The hypotheses were analyzed using the simulated data to outline the procedure and method by which these research questions could be assessed in a reproducible manner. This project also provides the foundation structure for future analysis of the hypotheses without the confines of simulated data and instead with the provided raw data from which the simulated data set was formulated. 
 
 # Methods
 
@@ -179,7 +174,7 @@ apa_table(dem_table_sim,
 
 ```
 
-The sample used in this current study is a simulated data set based on the 2023 data codebook from the "Monitoring the Future" continuing study of different aspects and behaviors of high school students @miecha. The original data set consisted of `r nrow(dat)` participants in either eighth or tenth grade. The simulated data set, in turn, also included `r nrow(dat)` simulated participants, with `r round(white_percent, digits=2)`% identifying as white, `r round(eighth_percent, digits=2)`% in eighth grade, and `r round(tenth_percent, digits=2)`% in tenth grade.
+The sample used in this current study is a simulated data set based on the 2023 data codebook from the "Monitoring the Future" continuing study of different aspects and behaviors of high school students [insert citation]. The original data set consisted of `r nrow(dat)` participants in either eighth or tenth grade. The simulated data set, in turn, also included `r nrow(dat)` simulated participants, with `r round(white_percent, digits=2)`% identifying as white, `r round(eighth_percent, digits=2)`% in eighth grade, and `r round(tenth_percent, digits=2)`% in tenth grade.
 
 ## Procedure
 
@@ -227,7 +222,7 @@ anxiety_alpha_value <- anxiety_alpha_results$total$std.alpha
 
 ```
 
-All demographics and measures were simulated in accordance with the codebook provided on the Monitoring the Future website @miechb. The codebook additionally provided the distributions for all recorded variables, which was used to determine scoring distributions for each simulated measure. For the sake of creating scales for outcome measures, a numerical scale was created, with higher values indicating higher levels of each outcome. Due to the nature of the data being entirely simulated, using Cronbach's alpha values to assess the reliability of the social media use, impulsivity, depression, and anxiety measures are not particularly informative (alpha =`r round(smuse_alpha_value, digits=4)`, `r round(impulse_alpha_value, digits=4)`, `r round(depression_alpha_value, digits=4)`, `r round(anxiety_alpha_value, digits=4)` respectively). These values are not very promising in terms of the internal reliability of the measure scales, however, with the use of genuine raw data, we may observe more favorable results.
+All demographics and measures were simulated in accordance with the codebook provided on the Monitoring the Future website [insert citation]. The codebook additionally provided the distributions for all recorded variables, which was used to determine scoring distributions for each simulated measure. For the sake of creating scales for outcome measures, a numerical scale was created, with higher values indicating higher levels of each outcome. Due to the nature of the data being entirely simulated, using Cronbach's alpha values to assess the reliability of the social media use, impulsivity, depression, and anxiety measures are not particularly informative (alpha =`r round(smuse_alpha_value, digits=4)`, `r round(impulse_alpha_value, digits=4)`, `r round(depression_alpha_value, digits=4)`, `r round(anxiety_alpha_value, digits=4)` respectively). These values are not very promising in terms of the internal reliability of the measure scales, however, with the use of genuine raw data, we may observe more favorable results.
 
 # Results
 
@@ -329,16 +324,15 @@ boxplot
 
 ```
 
-Regression models were the last phase of analyses performed, used to assess whether social media use could predict the mental health and behavioral outcomes of impulsivity, depression, and anxiety, that were measured. Based on the simulated data analyses, social media use was found to not be a possible predictor or impulsivity, depression, or anxiety, although we may expect to see different results using raw data. For social media use as a predictor of impulsivity, the regression coefficient was `r sprintf("%.4f", smuse_impulse_reg_value)` (*p* = `r smuse_impulse_reg_pvalue`). Regarding social media use as a predictor of depression, the regression coefficient was `r smuse_depression_reg_value` (*p* = `r smuse_depression_reg_pvalue`). For the last of the models, social media use was analyzed as a predictor of anxiety, of which the regression coefficient was `r smuse_anx_reg_value` (*p* = `r smuse_anx_reg_pvalue`).
-Overall, from analyzing simulated data of the observed measures, no significant relationships were found between youth social media use and impulsivity, depression, or anxiety, and no significant differences were found between how eighth and tenth grade participants scored on the measures.
+Regression models were the last phase of analyses performed, used to assess whether social media use could predict the mental health and behavioral outcomes of impulsivity, depression, and anxiety, that were measured. Based on the simulated data analyses, social media use was found to not be a possible predictor or impulsivity, depression, or anxiety, although we may expect to see different results using raw data. For social media use as a predictor of impulsivity, the regression coefficient was `r sprintf("%.4f", smuse_impulse_reg_value)` (*p* = `r smuse_impulse_reg_pvalue`). Regarding social media use as a predictor of depression, the regression coefficient was `r smuse_depression_reg_value` (*p* = `r smuse_depression_reg_pvalue`). For the last of the models, social media use was analyzed as a predictor of anxiety, of which the regression coefficient was `r smuse_anx_reg_value` (*p* = `r smuse_anx_reg_pvalue`). Overall, from analyzing simulated data of the observed measures, no significant relationships were found between youth social media use and impulsivity, depression, or anxiety, and no significant differences were found between how eighth and tenth grade participants scored on the measures.
 
 # Discussion
 
-The purpose of this study was to mimic the workflow involved in creating reproducible research projects. All analyses were done using simulated data, so results are not representative of the true relationships between these variables that is observed in the raw data from 2023. However, through the simulated analyses, no significant relationships between social media use and impulsivity, depression, or anxiety were noted, nor was a difference found between how eighth and tenth grade participants score on any of the observed measures. Therefore, none of the study hypotheses were supported by the simulated data.
+The purpose of this study was to mimic the workflow involved in creating reproducible research projects. All analyses were done using simulated data, so results are not representative of the true relationships between these variables that is observed in the raw data from 2023. Through the simulated analyses, no significant relationships between social media use and impulsivity, depression, or anxiety were noted, nor was a difference found between how eighth and tenth grade participants score on any of the observed measures. Therefore, none of the study hypotheses were supported by the simulated data. 
 
 \newpage
 
 # References
 
-::: {#refs custom-style="Bibliography"}
+::: 
 :::

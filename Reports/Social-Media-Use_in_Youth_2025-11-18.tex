@@ -75,39 +75,6 @@
 % Set default figure placement to htbp
 \def\fps@figure{htbp}
 \makeatother
-% definitions for citeproc citations
-\NewDocumentCommand\citeproctext{}{}
-\NewDocumentCommand\citeproc{mm}{%
-  \begingroup\def\citeproctext{#2}\cite{#1}\endgroup}
-\makeatletter
- % allow citations to break across lines
- \let\@cite@ofmt\@firstofone
- % avoid brackets around text for \cite:
- \def\@biblabel#1{}
- \def\@cite#1#2{{#1\if@tempswa , #2\fi}}
-\makeatother
-\newlength{\cslhangindent}
-\setlength{\cslhangindent}{1.5em}
-\newlength{\csllabelwidth}
-\setlength{\csllabelwidth}{3em}
-\newenvironment{CSLReferences}[2] % #1 hanging-indent, #2 entry-spacing
- {\begin{list}{}{%
-  \setlength{\itemindent}{0pt}
-  \setlength{\leftmargin}{0pt}
-  \setlength{\parsep}{0pt}
-  % turn on hanging indent if param 1 is 1
-  \ifodd #1
-   \setlength{\leftmargin}{\cslhangindent}
-   \setlength{\itemindent}{-1\cslhangindent}
-  \fi
-  % set entry spacing
-  \setlength{\itemsep}{#2\baselineskip}}}
- {\end{list}}
-\usepackage{calc}
-\newcommand{\CSLBlock}[1]{\hfill\break\parbox[t]{\linewidth}{\strut\ignorespaces#1\strut}}
-\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\strut#1\strut}}
-\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
-\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 \ifLuaTeX
 \usepackage[bidi=basic]{babel}
 \else
@@ -228,18 +195,11 @@ Social media is becoming a new constant in the lives of high school youth, induc
 
 \section{Introduction}\label{introduction}
 
-Technology is rapidly advancing and becoming more accessible to the adolescents of ours and future generations. With this accessibility, the doors to social media access and use are wide open to youth. Additionally, mental health and behavioral issues among youth are being more widely addressed, and many claims have been made that social media, and media use in general, have negative effects on children's well-being. These technologies and media platforms will continue to evolve, and, therefore, it is becoming increasingly necessary to understand the psychological impacts of these growing entities on youth. The focus of this study is to use reproducible workflows to examine the relationship between social media use and mental health and behavioral outcomes, specifically impulsivity, depression, and anxiety, among a population of high-school aged youth. The three hypotheses tested are as follows:
+Technology is rapidly advancing and becoming more accessible to the adolescents of ours and future generations. With this accessibility, the doors to social media access and use are wide open to youth. Simultaneously, however, mental health and behavioral issues among youth are being more widely addressed. Many claims have been made that social media, and media use in general, have negative effects on children's well-being. New trends related to parenting methods with regards to technology access are widespread, and concern grows as younger and younger generations seem to be awarded access to technologies that appear to be harmful. These technologies and media platforms will continue to evolve, and, therefore, it is becoming increasingly necessary to understand the psychological impacts of these growing entities on youth. For the sake of this notion, I analyzed how social media use parallels adolescent levels of mental health and behavioral outcomes, specifically impulsivity, depression, and anxiety. The focus of this study is to use reproducible workflows to examine these relationship among a population of high-school aged youth.
 
-\begin{itemize}
-\item
-  Social media use will be positively correlated with impulsivity, and higher use of social media will lead to higher levels of impulsivity.
-\item
-  Social media use will be positively correlated with feelings of depression, and higher use of social media will lead to higher levels of depression.
-\item
-  Social media use will be positively correlated with feelings of anxiety, and higher use of social media will lead to higher levels of anxiety.
-\end{itemize}
+Three hypotheses were created for how I expected social media use to impact impulsivity, depression, and anxiety in the surveyed participants. All three hypotheses infer that social media use will be positively correlated with each outcome, respectively, so higher use of social media will correspond with higher levels of impulsivity, depression, and anxiety.
 
-To asses these, analyses were done on a simulated data set compiled referencing the data codebook from the 2023 Monitoring the Future Main Study, conducted on eighth and tenth grade participants by the University of Michigan (\emph{Monitoring the Future \textbar{} a Continuing Study of American Youth} (n.d.)). This study analyzed the relationships between social media use, impulsivity, depression, and anxiety using this simulated data to outline the procedure and method by which these research questions could be assessed in a reproducible manner.
+To asses these, analyses were done on a simulated data set compiled referencing the data codebook from the 2023 Monitoring the Future Main Study, conducted on eighth and tenth grade participants by the University of Michigan {[}insert citation{]}. The hypotheses were analyzed using the simulated data to outline the procedure and method by which these research questions could be assessed in a reproducible manner. This project also provides the foundation structure for future analysis of the hypotheses without the confines of simulated data and instead with the provided raw data from which the simulated data set was formulated.
 
 \section{Methods}\label{methods}
 
@@ -287,11 +247,11 @@ Residence &  & \\
 
 \end{table}
 
-The sample used in this current study is a simulated data set based on the 2023 data codebook from the ``Monitoring the Future'' continuing study of different aspects and behaviors of high school students Miech, Johnston, and Patrick (n.d.-a). The original data set consisted of 14734 participants in either eighth or tenth grade. The simulated data set, in turn, also included 14734 simulated participants, with 36.16\% identifying as white, 40.42\% in eighth grade, and 59.58\% in tenth grade.
+The sample used in this current study is a simulated data set based on the 2023 data codebook from the ``Monitoring the Future'' continuing study of different aspects and behaviors of high school students {[}insert citation{]}. The original data set consisted of 14734 participants in either eighth or tenth grade. The simulated data set, in turn, also included 14734 simulated participants, with 36.16\% identifying as white, 40.42\% in eighth grade, and 59.58\% in tenth grade.
 
 \subsection{Procedure}\label{procedure}
 
-All demographics and measures were simulated in accordance with the codebook provided on the Monitoring the Future website Miech, Johnston, and Patrick (n.d.-b). The codebook additionally provided the distributions for all recorded variables, which was used to determine scoring distributions for each simulated measure. For the sake of creating scales for outcome measures, a numerical scale was created, with higher values indicating higher levels of each outcome. Due to the nature of the data being entirely simulated, using Cronbach's alpha values to assess the reliability of the social media use, impulsivity, depression, and anxiety measures are not particularly informative (alpha =0.01, -0.01, 0.01, -0.03 respectively). These values are not very promising in terms of the internal reliability of the measure scales, however, with the use of genuine raw data, we may observe more favorable results.
+All demographics and measures were simulated in accordance with the codebook provided on the Monitoring the Future website {[}insert citation{]}. The codebook additionally provided the distributions for all recorded variables, which was used to determine scoring distributions for each simulated measure. For the sake of creating scales for outcome measures, a numerical scale was created, with higher values indicating higher levels of each outcome. Due to the nature of the data being entirely simulated, using Cronbach's alpha values to assess the reliability of the social media use, impulsivity, depression, and anxiety measures are not particularly informative (alpha =0.01, -0.01, 0.01, -0.03 respectively). These values are not very promising in terms of the internal reliability of the measure scales, however, with the use of genuine raw data, we may observe more favorable results.
 
 \section{Results}\label{results}
 
@@ -303,29 +263,17 @@ T-tests were performed to compare how participants scored on social media use, i
 
 \pandocbounded{\includegraphics[keepaspectratio]{Social-Media-Use_in_Youth_2025-11-18_files/figure-latex/box plot-1.pdf}}
 
-Regression models were the last phase of analyses performed, used to assess whether social media use could predict the mental health and behavioral outcomes of impulsivity, depression, and anxiety, that were measured. Based on the simulated data analyses, social media use was found to not be a possible predictor or impulsivity, depression, or anxiety, although we may expect to see different results using raw data. For social media use as a predictor of impulsivity, the regression coefficient was -0.0036 (\emph{p} = 0.56). Regarding social media use as a predictor of depression, the regression coefficient was 0.00 (\emph{p} = 0.73). For the last of the models, social media use was analyzed as a predictor of anxiety, of which the regression coefficient was -0.01 (\emph{p} = 0.59).
-Overall, from analyzing simulated data of the observed measures, no significant relationships were found between youth social media use and impulsivity, depression, or anxiety, and no significant differences were found between how eighth and tenth grade participants scored on the measures.
+Regression models were the last phase of analyses performed, used to assess whether social media use could predict the mental health and behavioral outcomes of impulsivity, depression, and anxiety, that were measured. Based on the simulated data analyses, social media use was found to not be a possible predictor or impulsivity, depression, or anxiety, although we may expect to see different results using raw data. For social media use as a predictor of impulsivity, the regression coefficient was -0.0036 (\emph{p} = 0.56). Regarding social media use as a predictor of depression, the regression coefficient was 0.00 (\emph{p} = 0.73). For the last of the models, social media use was analyzed as a predictor of anxiety, of which the regression coefficient was -0.01 (\emph{p} = 0.59). Overall, from analyzing simulated data of the observed measures, no significant relationships were found between youth social media use and impulsivity, depression, or anxiety, and no significant differences were found between how eighth and tenth grade participants scored on the measures.
 
 \section{Discussion}\label{discussion}
 
-The purpose of this study was to mimic the workflow involved in creating reproducible research projects. All analyses were done using simulated data, so results are not representative of the true relationships between these variables that is observed in the raw data from 2023. However, through the simulated analyses, no significant relationships between social media use and impulsivity, depression, or anxiety were noted, nor was a difference found between how eighth and tenth grade participants score on any of the observed measures. Therefore, none of the study hypotheses were supported by the simulated data.
+The purpose of this study was to mimic the workflow involved in creating reproducible research projects. All analyses were done using simulated data, so results are not representative of the true relationships between these variables that is observed in the raw data from 2023. Through the simulated analyses, no significant relationships between social media use and impulsivity, depression, or anxiety were noted, nor was a difference found between how eighth and tenth grade participants score on any of the observed measures. Therefore, none of the study hypotheses were supported by the simulated data.
 
 \newpage
 
 \section{References}\label{references}
 
 \phantomsection\label{refs}
-\begin{CSLReferences}{1}{0}
-\bibitem[\citeproctext]{ref-miecha}
-Miech, R. A., Johnston, L. D., \& Patrick, M. E. (n.d.-a). \emph{ICPSR 39171 Monitoring the Future: A}.
-
-\bibitem[\citeproctext]{ref-miechb}
-Miech, R. A., Johnston, L. D., \& Patrick, M. E. (n.d.-b). \emph{ICPSR 39171 Monitoring the Future: A}.
-
-\bibitem[\citeproctext]{ref-monitori}
-\emph{Monitoring the future \textbar{} a continuing study of american youth}. (n.d.). Retrieved from \url{https://monitoringthefuture.org/}
-
-\end{CSLReferences}
 
 
 \end{document}
