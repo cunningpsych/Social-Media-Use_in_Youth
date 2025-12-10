@@ -1,0 +1,371 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+  english,
+  man,floatsintext]{apa6}
+\usepackage{xcolor}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+% definitions for citeproc citations
+\NewDocumentCommand\citeproctext{}{}
+\NewDocumentCommand\citeproc{mm}{%
+  \begingroup\def\citeproctext{#2}\cite{#1}\endgroup}
+\makeatletter
+ % allow citations to break across lines
+ \let\@cite@ofmt\@firstofone
+ % avoid brackets around text for \cite:
+ \def\@biblabel#1{}
+ \def\@cite#1#2{{#1\if@tempswa , #2\fi}}
+\makeatother
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-indent, #2 entry-spacing
+ {\begin{list}{}{%
+  \setlength{\itemindent}{0pt}
+  \setlength{\leftmargin}{0pt}
+  \setlength{\parsep}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+   \setlength{\leftmargin}{\cslhangindent}
+   \setlength{\itemindent}{-1\cslhangindent}
+  \fi
+  % set entry spacing
+  \setlength{\itemsep}{#2\baselineskip}}}
+ {\end{list}}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{\hfill\break\parbox[t]{\linewidth}{\strut\ignorespaces#1\strut}}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+\ifLuaTeX
+\usepackage[bidi=basic]{babel}
+\else
+\usepackage[bidi=default]{babel}
+\fi
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
+\ifLuaTeX
+  \usepackage[english]{selnolig} % disable illegal ligatures
+\fi
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+% Manuscript styling
+\usepackage{upgreek}
+\captionsetup{font=singlespacing,justification=justified}
+
+% Table formatting
+\usepackage{longtable}
+\usepackage{lscape}
+% \usepackage[counterclockwise]{rotating}   % Landscape page setup for large tables
+\usepackage{multirow}		% Table styling
+\usepackage{tabularx}		% Control Column width
+\usepackage[flushleft]{threeparttable}	% Allows for three part tables with a specified notes section
+\usepackage{threeparttablex}            % Lets threeparttable work with longtable
+
+% Create new environments so endfloat can handle them
+% \newenvironment{ltable}
+%   {\begin{landscape}\centering\begin{threeparttable}}
+%   {\end{threeparttable}\end{landscape}}
+\newenvironment{lltable}{\begin{landscape}\centering\begin{ThreePartTable}}{\end{ThreePartTable}\end{landscape}}
+
+% Enables adjusting longtable caption width to table width
+% Solution found at http://golatex.de/longtable-mit-caption-so-breit-wie-die-tabelle-t15767.html
+\makeatletter
+\newcommand\LastLTentrywidth{1em}
+\newlength\longtablewidth
+\setlength{\longtablewidth}{1in}
+\newcommand{\getlongtablewidth}{\begingroup \ifcsname LT@\roman{LT@tables}\endcsname \global\longtablewidth=0pt \renewcommand{\LT@entry}[2]{\global\advance\longtablewidth by ##2\relax\gdef\LastLTentrywidth{##2}}\@nameuse{LT@\roman{LT@tables}} \fi \endgroup}
+
+% \setlength{\parindent}{0.5in}
+% \setlength{\parskip}{0pt plus 0pt minus 0pt}
+
+% Overwrite redefinition of paragraph and subparagraph by the default LaTeX template
+% See https://github.com/crsh/papaja/issues/292
+\makeatletter
+\renewcommand{\paragraph}{\@startsection{paragraph}{4}{\parindent}%
+  {0\baselineskip \@plus 0.2ex \@minus 0.2ex}%
+  {-1em}%
+  {\normalfont\normalsize\bfseries\itshape\typesectitle}}
+
+\renewcommand{\subparagraph}[1]{\@startsection{subparagraph}{5}{1em}%
+  {0\baselineskip \@plus 0.2ex \@minus 0.2ex}%
+  {-\z@\relax}%
+  {\normalfont\normalsize\itshape\hspace{\parindent}{#1}\textit{\addperi}}{\relax}}
+\makeatother
+
+\makeatletter
+\usepackage{etoolbox}
+\patchcmd{\maketitle}
+  {\section{\normalfont\normalsize\abstractname}}
+  {\section*{\normalfont\normalsize\abstractname}}
+  {}{\typeout{Failed to patch abstract.}}
+\patchcmd{\maketitle}
+  {\section{\protect\normalfont{\@title}}}
+  {\section*{\protect\normalfont{\@title}}}
+  {}{\typeout{Failed to patch title.}}
+\makeatother
+
+\usepackage{xpatch}
+\makeatletter
+\xapptocmd\appendix
+  {\xapptocmd\section
+    {\addcontentsline{toc}{section}{\appendixname\ifoneappendix\else~\theappendix\fi: #1}}
+    {}{\InnerPatchFailed}%
+  }
+{}{\PatchFailed}
+\makeatother
+\keywords{social media use, youth, mental health outcomes, behavioral outcomes\newline\indent Word count: 1361}
+\usepackage{csquotes}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Social Media Use in Youth and Related Mental Health and Behavioral Outcomes},
+  pdfauthor={Natalie Cunningham1},
+  pdflang={en-EN},
+  pdfkeywords={social media use, youth, mental health outcomes, behavioral outcomes},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Social Media Use in Youth and Related Mental Health and Behavioral Outcomes}
+\author{Natalie Cunningham\textsuperscript{1}}
+\date{}
+
+
+\shorttitle{Youth Social Media Use}
+
+\authornote{
+
+The authors made the following contributions. Natalie Cunningham: Conceptualization, Writing - Original Draft Preparation, Writing - Review \& Editing.
+
+Correspondence concerning this article should be addressed to Natalie Cunningham, 75 E River Pkwy, Minneapolis, MN 55455. E-mail: \href{mailto:cunni734@umn.edu}{\nolinkurl{cunni734@umn.edu}}
+
+}
+
+\affiliation{\vspace{0.5cm}\textsuperscript{1} University of Minnesota - Twin Cities}
+
+\abstract{%
+Social media is becoming a new constant in the lives of high school youth, inducing worry among the public regarding the potential behavioral and mental health outcomes that social media use may have on adolescents. More research is required to fully understand the impact that social media use has on the adolescent brain and behavior, and should continue to be conducted as technology advances. This study looks at the relationship between social media and impulsivity, depression, and anxiety in high school youth through simulated data created by means of the 2023 Monitoring the Future continuing study conducted on eighth and tenth grade participants by the University of Michigan. Through the simulated data, it was found that there were no statistically significant relationships between social media use and the measured mental health and behavioral outcomes, nor was social media use seen as a predictor of these outcomes. However, with raw data, different results may be observed in these regards, and further analysis should be done on the raw data to assess these relationships.
+}
+
+
+
+\begin{document}
+\maketitle
+
+\section{Introduction}\label{introduction}
+
+Technology is rapidly advancing and becoming more accessible to current adolescents and those of future generations. With this accessibility, the doors to social media access and use are wide open to youth. Simultaneously, however, mental health and behavioral issues among youth are being more widely addressed. Many claims have been made that social media, and media use in general, have negative effects on children's well-being, and new trends related to parenting methods with regard to technology access are widespread (Turner, 2020). These technologies and media platforms will continue to evolve, and, therefore, it is becoming increasingly necessary to understand the psychological impacts of these growing entities on youth. For the sake of this notion, I analyzed how social media use parallels adolescent levels of mental health and behavioral outcomes, specifically impulsivity, depression, and anxiety. The focus of this study is to use reproducible workflows to examine these relationships among a population of high-school-aged youth.
+Three hypotheses were created for how I expected social media use to impact impulsivity, depression, and anxiety in the surveyed participants. All three hypotheses infer that social media use will be positively correlated with each outcome, respectively, so higher use of social media will correspond with higher levels of impulsivity, depression, and anxiety.
+To assess these, analyses were done on a simulated data set compiled referencing the data codebook from the 2023 Monitoring the Future Main Study, conducted on eighth and tenth-grade participants by the University of Michigan (\emph{Monitoring the Future \textbar{} a Continuing Study of American Youth}, n.d.). The hypotheses were analyzed using the simulated data to outline the procedure and method by which these research questions could be assessed in a reproducible manner. This project also provides the foundation structure for future analysis of the hypotheses without the confines of simulated data and instead with the provided raw data from which the simulated data set was formulated.
+
+\section{Methods}\label{methods}
+
+The current study was not preregistered, and raw data were not collected or analyzed. Simulated data was created based on raw data from the 2023 study on eighth and tenth graders from the ``Monitoring the Future'' continuing study. Simulated data and code are available at \href{https://github.com/cunningpsych/Social-Media-Use_in_Youth}{this hyperlink to the GitHub repository}.
+
+\subsection{Participants}\label{participants}
+
+\begin{table}[tbp]
+
+\begin{center}
+\begin{threeparttable}
+
+\caption{\label{tab:demographics table}Demographics}
+
+\begin{tabular}{lcc}
+\toprule
+Category & \multicolumn{1}{c}{n} & \multicolumn{1}{c}{\%}\\
+\midrule
+Race &  & \\
+\ \ \ \ Black & 2194 & 14.89\\
+\ \ \ \ White & 5328 & 36.16\\
+\ \ \ \ Hispanic & 2792 & 18.95\\
+Gender &  & \\
+\ \ \ \ Female & 6170 & 41.88\\
+\ \ \ \ Male & 6392 & 43.38\\
+\ \ \ \ Other & 731 & 4.96\\
+\ \ \ \ Prefer Not to Answer & 704 & 4.78\\
+Grade Level &  & \\
+\ \ \ \ Eighth Grade & 5956 & 40.42\\
+\ \ \ \ Tenth Grade & 8778 & 59.58\\
+Residence &  & \\
+\ \ \ \ Farm & 5012 & 34.02\\
+\ \ \ \ Country & 1515 & 10.28\\
+\ \ \ \ City & 7470 & 50.7\\
+\bottomrule
+\addlinespace
+\end{tabular}
+
+\begin{tablenotes}[para]
+\normalsize{\textit{Note.} From simulated sample population. N = 14,734}
+\end{tablenotes}
+
+\end{threeparttable}
+\end{center}
+
+\end{table}
+
+The sample used in this current study is a simulated data set based on the 2023 data codebook from the ``Monitoring the Future'' continuing study of different aspects and behaviors of high school students (Miech, Johnston, \& Patrick, n.d.). The original data set consisted of 14,734 participants in either eighth or tenth grade. The simulated data set, in turn, also included 14,734 simulated participants, with 36.16\% identifying as white, 40.42\% in eighth grade, and 59.58\% in tenth grade.
+
+\subsection{Procedure}\label{procedure}
+
+All demographics and measures were simulated in accordance with the codebook provided on the Monitoring the Future website (\emph{Monitoring the Future \textbar{} a Continuing Study of American Youth}, n.d.). The codebook additionally provided the distributions for all recorded variables, which were used to determine scoring distributions for each simulated measure. For the sake of creating scales for outcome measures, a numerical scale was created, with higher values indicating higher levels of each outcome. Due to the nature of the data being entirely simulated, using Cronbach's alpha values to assess the reliability of the social media use, impulsivity, depression, and anxiety measures are not particularly informative (alpha =0.01, -0.01, 0.01, -0.03 respectively). These values are not very promising in terms of the internal reliability of the measure scales; however, with the use of the raw data, we may observe more favorable results.
+
+\subsection{Data analysis}\label{data-analysis}
+
+R (Version 4.4.1; R Core Team, 2024) and the R-packages \emph{apaTables} (Version 2.0.8; Stanley, 2021), \emph{cowplot} (Version 1.1.3; Wilke, 2024), \emph{DescTools} (Version 0.99.60; Signorell, 2025), \emph{dplyr} (Version 1.1.4; Wickham, François, Henry, Müller, \& Vaughan, 2023), \emph{faux} (Version 1.2.2; DeBruine, 2025), \emph{ggplot2} (Version 3.5.1; Wickham, 2016), \emph{labelled} (Version 2.14.0; Larmarange, 2025), \emph{missMethods} (Version 0.4.0; Rockel, 2022), \emph{papaja} (Version 0.1.4; Aust \& Barth, 2025), \emph{psych} (Version 2.5.3; William Revelle, 2025), \emph{summarytools} (Version 1.1.3; Comtois, 2025), \emph{tidyr} (Version 1.3.1; Wickham, Vaughan, \& Girlich, 2024), and \emph{tinylabels} (Version 0.2.5; Barth, 2025) were used for all analyses.
+
+\section{Results}\label{results}
+
+Given the bounds to work with raw data, I would explore how social media use is related to impulsivity, depression, and anxiety among adolescents. With the simulated data, I was able to calculate Pearson's r correlations, conduct t-tests, and create regression models to connect the simulated social media use with each behavioral and mental health outcome and how each outcome differs between eighth and tenth graders.
+
+For the sake of finding significance in the correlations between measures, 0.05 was used as a threshold for the p-values. Simulated social media use and impulse control were found to be weakly negatively correlated with a p-value above the threshold, indicating that either the nature of the simulated data are not representative of authentic data or the hypothesis that social media use and impulsivity are positively correlated can likely be disproved (Pearson's r = -0.01, \emph{p} = .562). Social media use and depression values were produced a correlation value of practically zero with a p-value above the threshold, so it is a near negligible relationship based on the simulated data (Pearson's r = 0.005, \emph{p} = .733). Lastly, it was found that social media use and anxiety are weakly negatively correlated based on the simulated data, also indicating a weak relationship that can disprove the hypothesis formed for social media use and anxiety or an inaccurate representation of how the measures can be seen using raw data and participants (Pearson's r = -0.01, \emph{p} = .594).
+
+\emph{Figure 1.}
+
+\begin{figure}
+
+\includegraphics{Social-Media-Use_in_Youth_2025-12-1_files/figure-latex/box plot-1} \hfill{}
+
+\end{figure}
+
+T-tests were performed to compare how participants scored on social media use, impulsivity, depression, and anxiety scales based on grade level. Most items were scored on a scale from 1 to 5, with 1 being lower levels of the measure and 5 being high levels of the measure. For social media use, there was not a particularly large observed difference between how eighth and tenth graders were scoring, with the average group means at 3.87 with a standard deviation of 0.69 for eighth grade and 3.87 with a standard deviation of 0.70 for tenth grade (t-statistic = -0.14, \emph{p} = .890). Similar results were found for impulsivity, and while the difference between the grade levels was found to be higher, the average scores were also quite similar. For eighth grade the average score was 2.03 with a standard deviation of 0.30 and for tenth grade the average score was 2.03 with a standard deviation of 0.30. The p-value for this comparison denoted a lack of significance (t-statistic = 1.08, \emph{p} = .282). The depression measure also saw comparable results, with average scores of 2.61 with a standard deviation of 0.38 for eighth grade and 2.61 with a standard deviation of 0.37 for tenth grade (t-statistic = 0.86, \emph{p} = .391). Comparing the grade levels on the anxiety measure again saw similar group means for the measure separated by grade, with eighth and tenth graders averaging scores of 3.51 and 3.51 with standard deviations of 0.89 and 0.90, respectively (t-statistic = 1.72, \emph{p} = .086). These results showed very little difference between how eighth and tenth graders scored on any of the simulated behavioral or mental health measures. Overall, from analyzing simulated data of the observed measures, no significant relationships were found between youth social media use and impulsivity, depression, or anxiety, and no significant differences were found between how eighth and tenth grade participants scored on the measures.
+
+\section{Discussion}\label{discussion}
+
+The purpose of this study was to mimic the workflow involved in creating reproducible research projects. All analyses were done using simulated data, so results are not representative of the true relationships between these variables that are observed in the raw data from 2023. Through the simulated analyses, no significant relationships between social media use and impulsivity, depression, or anxiety were noted, nor was a difference found between how eighth and tenth tenth-grade participants scored on any of the observed measures. Therefore, none of the study hypotheses were supported by the simulated data, and the raw data should be used to examine these relationships in a future analysis.
+
+\newpage
+
+\section{References}\label{references}
+
+\phantomsection\label{refs}
+\begin{CSLReferences}{1}{0}
+\bibitem[\citeproctext]{ref-R-papaja}
+Aust, F., \& Barth, M. (2025). \emph{{papaja}: {Prepare} reproducible {APA} journal articles with {R Markdown}}. \url{https://doi.org/10.32614/CRAN.package.papaja}
+
+\bibitem[\citeproctext]{ref-R-tinylabels}
+Barth, M. (2025). \emph{{tinylabels}: Lightweight variable labels}. \url{https://doi.org/10.32614/CRAN.package.tinylabels}
+
+\bibitem[\citeproctext]{ref-R-summarytools}
+Comtois, D. (2025). \emph{Summarytools: Tools to quickly and neatly summarize data}. Retrieved from \url{https://CRAN.R-project.org/package=summarytools}
+
+\bibitem[\citeproctext]{ref-R-faux}
+DeBruine, L. (2025). \emph{Faux: Simulation for factorial designs}. Zenodo. \url{https://doi.org/10.5281/zenodo.2669586}
+
+\bibitem[\citeproctext]{ref-R-labelled}
+Larmarange, J. (2025). \emph{Labelled: Manipulating labelled data}. Retrieved from \url{https://CRAN.R-project.org/package=labelled}
+
+\bibitem[\citeproctext]{ref-miech}
+Miech, R. A., Johnston, L. D., \& Patrick, M. E. (n.d.). \emph{ICPSR 39171 Monitoring the Future: A}.
+
+\bibitem[\citeproctext]{ref-monitori}
+\emph{Monitoring the future \textbar{} a continuing study of american youth}. (n.d.). Retrieved from \url{https://monitoringthefuture.org/}
+
+\bibitem[\citeproctext]{ref-R-base}
+R Core Team. (2024). \emph{R: A language and environment for statistical computing}. Vienna, Austria: R Foundation for Statistical Computing. Retrieved from \url{https://www.R-project.org/}
+
+\bibitem[\citeproctext]{ref-R-missMethods}
+Rockel, T. (2022). \emph{missMethods: Methods for missing data}. Retrieved from \url{https://CRAN.R-project.org/package=missMethods}
+
+\bibitem[\citeproctext]{ref-R-DescTools}
+Signorell, A. (2025). \emph{DescTools: Tools for descriptive statistics}. Retrieved from \url{https://CRAN.R-project.org/package=DescTools}
+
+\bibitem[\citeproctext]{ref-R-apaTables}
+Stanley, D. (2021). \emph{apaTables: Create american psychological association (APA) style tables}. Retrieved from \url{https://CRAN.R-project.org/package=apaTables}
+
+\bibitem[\citeproctext]{ref-turner2020}
+Turner, B. A. M. A. A. P. and E. (2020). \emph{Parenting children in the age of screens}. Retrieved from \url{https://www.pewresearch.org/internet/2020/07/28/parenting-children-in-the-age-of-screens/}
+
+\bibitem[\citeproctext]{ref-R-ggplot2}
+Wickham, H. (2016). \emph{ggplot2: Elegant graphics for data analysis}. Springer-Verlag New York. Retrieved from \url{https://ggplot2.tidyverse.org}
+
+\bibitem[\citeproctext]{ref-R-dplyr}
+Wickham, H., François, R., Henry, L., Müller, K., \& Vaughan, D. (2023). \emph{Dplyr: A grammar of data manipulation}. Retrieved from \url{https://CRAN.R-project.org/package=dplyr}
+
+\bibitem[\citeproctext]{ref-R-tidyr}
+Wickham, H., Vaughan, D., \& Girlich, M. (2024). \emph{Tidyr: Tidy messy data}. Retrieved from \url{https://CRAN.R-project.org/package=tidyr}
+
+\bibitem[\citeproctext]{ref-R-cowplot}
+Wilke, C. O. (2024). \emph{Cowplot: Streamlined plot theme and plot annotations for 'ggplot2'}. Retrieved from \url{https://CRAN.R-project.org/package=cowplot}
+
+\bibitem[\citeproctext]{ref-R-psych}
+William Revelle. (2025). \emph{Psych: Procedures for psychological, psychometric, and personality research}. Evanston, Illinois: Northwestern University. Retrieved from \url{https://CRAN.R-project.org/package=psych}
+
+\end{CSLReferences}
+
+
+\end{document}

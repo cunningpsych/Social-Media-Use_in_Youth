@@ -1,0 +1,41 @@
+\begin{table*}[hbt]
+\ifnextchar[{\eatarg}{}
+[tbp]
+
+\begin{center}
+\begin{threeparttable}
+
+\caption{\label{tab:demographics table}Demographics}
+
+\begin{tabular}{lcc}
+\toprule
+Category & \multicolumn{1}{c}{n} & \multicolumn{1}{c}{\%}\\
+\midrule
+Race &  & \\
+\ \ \ \ Black & 2194 & 14.89\\
+\ \ \ \ White & 5328 & 36.16\\
+\ \ \ \ Hispanic & 2792 & 18.95\\
+Gender &  & \\
+\ \ \ \ Female & 6170 & 41.88\\
+\ \ \ \ Male & 6392 & 43.38\\
+\ \ \ \ Other & 731 & 4.96\\
+\ \ \ \ Prefer Not to Answer & 704 & 4.78\\
+Grade Level &  & \\
+\ \ \ \ Eighth Grade & 5956 & 40.42\\
+\ \ \ \ Tenth Grade & 8778 & 59.58\\
+Residence &  & \\
+\ \ \ \ Farm & 5012 & 34.02\\
+\ \ \ \ Country & 1515 & 10.28\\
+\ \ \ \ City & 7470 & 50.7\\
+\bottomrule
+\addlinespace
+\end{tabular}
+
+\begin{tablenotes}[para]
+\normalsize{\textit{Note.} From simulated sample population. N = 14,734}
+\end{tablenotes}
+
+\end{threeparttable}
+\end{center}
+
+\end{table*}
