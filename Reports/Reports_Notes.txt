@@ -1,0 +1,7 @@
+##### Social Media Use in Youth Project
+##### Reports Notes
+##### A file for internal project notes about project reports
+##### First created Oct. 20, 2025
+
+This folder contains the final version of the Rmd and its associated LaTex file and PDF output as well as R package references and outside source references. All will need to be downloaded in order to review and run the analyses and code provided in the Rmd as well as knit the file.
+Please reach out with any questions or issues you encounter.
