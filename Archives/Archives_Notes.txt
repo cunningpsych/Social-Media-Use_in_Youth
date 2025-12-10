@@ -1,4 +1,7 @@
-##### XXXX Project
+##### Social Media Use in Youth Project
 ##### Archives Notes
 ##### A file for internal project notes about the archives
-##### First created XXXX
+##### First created Oct. 20, 2025
+
+This folder contains all previous versions of the project. None of the files are necessary for download to access or run the most recent Rmd file, which can be found under 'Reports.'
+These files are simply saved here for review and to maintain version history.
