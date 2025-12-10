@@ -1,0 +1,162 @@
+---
+title             : "Social Media Use in Youth and Related Mental Health Outcomes"
+shorttitle        : "Social Media Use in Youth"
+
+author: 
+  - name          : "Natalie Cunningham"
+    affiliation   : "1"
+    corresponding : yes    # Define only one corresponding author
+    address       : "75 E River Pkwy, Minneapolis, MN 55455"
+    email         : "cunni734@umn.edu"
+    role: # Contributorship roles (e.g., CRediT, https://credit.niso.org/)
+      - "Conceptualization"
+      - "Writing - Original Draft Preparation"
+      - "Writing - Review & Editing"
+  - name          : "Name"
+    affiliation   : "1,2"
+    role:
+      - "Writing - Review & Editing"
+      - "Supervision"
+
+affiliation:
+  - id            : "1"
+    institution   : "University of Minnesota - Twin Cities"
+  - id            : "2"
+    institution   : "Konstanz Business School"
+
+authornote: |
+  Here lies my author note that I will write later
+
+abstract: |
+  Here lies my abstract that I will write later
+  
+keywords          : "youth, social media use, depression, anxiety, impulsivity"
+wordcount         : "X"
+
+bibliography      : "r-references.bib"
+
+floatsintext      : yes
+linenumbers       : no
+draft             : no
+mask              : no
+
+figurelist        : no
+tablelist         : no
+footnotelist      : no
+
+classoption       : "man"
+output            : papaja::apa6_pdf
+---
+
+```{r setup, include = FALSE}
+library(papaja)
+library(groundhog)
+groundhog.library(dplyr, "2025-04-02")
+groundhog.library(psych, "2025-04-02")
+groundhog.library(labelled, "2025-04-02")
+groundhog.library(ggplot2, "2025-04-02")
+groundhog.library(apaTables, "2025-04-02")
+r_refs("r-references.bib")
+```
+
+```{r analysis-preferences}
+# Seed for random number generation
+set.seed(2005)
+knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
+```
+
+```{r data setup, include=FALSE}
+dat <- read.csv("../Data/2025-11-13_youth-media-use_simulated-data.csv")
+names(dat)
+```
+# Introduction
+
+# Methods
+The current study was not preregistered and raw data was not collected or analyzed. Simulated data was created based on raw data from the 2023 study on eighth and tenth graders from the "Monitoring the Future" continuing stuyd. Simulated data and code are available at [this hyperlink to the github repository](https://github.com/cunningpsych/Social-Media-Use_in_Youth).
+
+## Participants and Procedure
+
+```{r demographics, include=FALSE}
+
+# creating objects for mean and sd of age for text insertion
+age_mean <- mean(dat$age_sim)
+age_sd <- sd(dat$age_sim)
+
+# recoding grade factors from (1,2) to (eighth grade, tenth grade) and creating percent objects for each grade
+dat <- mutate(dat, grade_sim = factor(grade_sim, levels = c(1,2),
+                                      labels = c("Eighth Grade", "Tenth Grade")))
+summarytools::freq(dat$grade_sim)
+eighth_percent <- (nrow(filter(dat, grade_sim == "Eighth Grade"))/(nrow(dat))*100)
+tenth_percent <- (nrow(filter(dat, grade_sim == "Tenth Grade"))/(nrow(dat))*100)
+
+
+# recoding residence factors from (1,2,3) to (farm, country, citytown)
+dat <- mutate(dat, residence_sim = factor(residence_sim, levels = c(1,2,3),
+                                          labels = c("Farm", "Country", "City")))
+summarytools::freq(dat$residence_sim)
+
+
+# recoding sex factors from (1,2,3,4) to (male, female, other, prefer not to answer)
+dat <- mutate(dat, sex_sim = factor(sex_sim, levels = c(1,2,3,4),
+                                    labels = c("Male","Female","Other","Prefer Not to Answer")))
+summarytools::freq(dat$sex_sim)
+
+# recoding race factors from (1,2,3) to (black, white, hispanic), creating a percent object for those who identify as white, and creating objects for each variable
+dat <- mutate(dat, race_sim = factor(race_sim, levels = c(1,2,3),
+                                     labels = c("Black","White","Hispanic")))
+summarytools::freq(dat$race_sim)
+
+white_percent <- (nrow(filter(dat, race_sim == "White"))/(nrow(dat))*100)
+
+black_pop <- nrow(filter(dat, race_sim == "Black"))
+white_pop <- nrow(filter(dat, race_sim == "White"))
+hispanic_pop <- nrow(filter(dat, race_sim == "Hispanic"))
+```
+The sample used in this current study is a simulated data set based on the 2023 raw data from the "Monitoring the Future" continuing study of different aspects and behaviors of high school students. The original data set consisted of `r nrow(dat)` participants in either eighth or tenth grade. The simulated data set, in turn, also included `r nrow(dat)` simulated participants, with `r round(white_percent, digits=2)`% identifying as white, `r round(eighth_percent, digits=2)`% in eighth grade, and `r round(tenth_percent, digits=2)`% in tenth grade (*M* age = `r round(age_mean, digits=2)`, *SD* = `r round(age_sd, digits=2)`).
+
+## Measures
+```{r recoding negatively keyed items, include=FALSE}
+# All negatively keyed items are within the depression scale
+dat <- dat %>% mutate(depression_1_sim_r = recode(depression_1_sim, `1`=3,`2`=2,`3`=1),
+                      depression_3_sim_r = recode(depression_3_sim, `1`=5,`2`=4, `3`=3,`4`=2,`5`=1),
+                      depression_5_sim_r = recode(depression_5_sim, `1`=5,`2`=4,`3`=3,`4`=2,`5`=1),
+                      depression_7_sim_r = recode(depression_7_sim, `1`=5,`2`=4,`3`=3,`4`=2,`5`=1))
+
+```
+
+```{r making scales of measures, include=FALSE}
+smuse_scale_sim <- dat %>% mutate(smuse_means_sim = rowMeans(pick(smuse_1_sim:smuse_4_sim)))
+dat <- smuse_scale_sim
+
+impulse_scale_sim <- dat %>% mutate(impulse_means_sim = rowMeans(pick(impulse_1_sim:impulse_14_sim)))
+dat <- impulse_scale_sim
+
+depression_scale_sim <- dat %>% mutate(depression_means_sim = rowMeans(pick(depression_1_sim_r,depression_2_sim,depression_3_sim_r,depression_4_sim,depression_5_sim_r,depression_6_sim,depression_7_sim_r,depression_8_sim,depression_9_sim,depression_10_sim)))
+dat <- depression_scale_sim
+
+anxiety_scale_sim <- dat %>% mutate(anxiety_means_sim = rowMeans(pick(anxiety_1_sim:anxiety_2_sim)))
+dat <- anxiety_scale_sim
+```
+
+```{r reliability of measures, include=FALSE}
+impulse_items_sim <- dat %>% dplyr::select(impulse_1_sim:impulse_14_sim)
+impulse_alpha_results <- psych::alpha(impulse_items_sim)
+impulse_alpha_value <- impulse_alpha_results$total$raw_alpha
+
+
+depression_items_sim <- dat %>% dplyr::select(depression_1_sim_r,depression_2_sim,depression_3_sim_r, depression_4_sim,depression_5_sim_r,depression_6_sim,depression_7_sim_r,depression_8_sim,depression_9_sim,depression_10_sim)
+psych::alpha(depression_items_sim)
+```
+The Monitoring the Future Main Study is a survey that is presented annually to eighth, tenth, and twelfth graders to observe how answers may change over time. The survey results are split into two data sets, one for eighth and tenth grade participants and one for twelfth grade participants. For the sake of this study, items were pulled from the 2023 8th- and 10th grade survey codebook to create scales of social media use, impulsivity, depression, and anxiety.
+The data used for analyses are all simulated, so the reliability of each measure is quite poor. The Cronbach's alpha for the impulsivity measure was
+# Results
+
+# Discussion
+
+
+\newpage
+
+# References
+
+::: {#refs custom-style="Bibliography"}
+:::

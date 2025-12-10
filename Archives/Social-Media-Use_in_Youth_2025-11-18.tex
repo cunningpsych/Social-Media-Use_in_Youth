@@ -1,0 +1,279 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+  english,
+  man,floatsintext]{apa6}
+\usepackage{xcolor}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\ifLuaTeX
+\usepackage[bidi=basic]{babel}
+\else
+\usepackage[bidi=default]{babel}
+\fi
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
+\ifLuaTeX
+  \usepackage[english]{selnolig} % disable illegal ligatures
+\fi
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+% Manuscript styling
+\usepackage{upgreek}
+\captionsetup{font=singlespacing,justification=justified}
+
+% Table formatting
+\usepackage{longtable}
+\usepackage{lscape}
+% \usepackage[counterclockwise]{rotating}   % Landscape page setup for large tables
+\usepackage{multirow}		% Table styling
+\usepackage{tabularx}		% Control Column width
+\usepackage[flushleft]{threeparttable}	% Allows for three part tables with a specified notes section
+\usepackage{threeparttablex}            % Lets threeparttable work with longtable
+
+% Create new environments so endfloat can handle them
+% \newenvironment{ltable}
+%   {\begin{landscape}\centering\begin{threeparttable}}
+%   {\end{threeparttable}\end{landscape}}
+\newenvironment{lltable}{\begin{landscape}\centering\begin{ThreePartTable}}{\end{ThreePartTable}\end{landscape}}
+
+% Enables adjusting longtable caption width to table width
+% Solution found at http://golatex.de/longtable-mit-caption-so-breit-wie-die-tabelle-t15767.html
+\makeatletter
+\newcommand\LastLTentrywidth{1em}
+\newlength\longtablewidth
+\setlength{\longtablewidth}{1in}
+\newcommand{\getlongtablewidth}{\begingroup \ifcsname LT@\roman{LT@tables}\endcsname \global\longtablewidth=0pt \renewcommand{\LT@entry}[2]{\global\advance\longtablewidth by ##2\relax\gdef\LastLTentrywidth{##2}}\@nameuse{LT@\roman{LT@tables}} \fi \endgroup}
+
+% \setlength{\parindent}{0.5in}
+% \setlength{\parskip}{0pt plus 0pt minus 0pt}
+
+% Overwrite redefinition of paragraph and subparagraph by the default LaTeX template
+% See https://github.com/crsh/papaja/issues/292
+\makeatletter
+\renewcommand{\paragraph}{\@startsection{paragraph}{4}{\parindent}%
+  {0\baselineskip \@plus 0.2ex \@minus 0.2ex}%
+  {-1em}%
+  {\normalfont\normalsize\bfseries\itshape\typesectitle}}
+
+\renewcommand{\subparagraph}[1]{\@startsection{subparagraph}{5}{1em}%
+  {0\baselineskip \@plus 0.2ex \@minus 0.2ex}%
+  {-\z@\relax}%
+  {\normalfont\normalsize\itshape\hspace{\parindent}{#1}\textit{\addperi}}{\relax}}
+\makeatother
+
+\makeatletter
+\usepackage{etoolbox}
+\patchcmd{\maketitle}
+  {\section{\normalfont\normalsize\abstractname}}
+  {\section*{\normalfont\normalsize\abstractname}}
+  {}{\typeout{Failed to patch abstract.}}
+\patchcmd{\maketitle}
+  {\section{\protect\normalfont{\@title}}}
+  {\section*{\protect\normalfont{\@title}}}
+  {}{\typeout{Failed to patch title.}}
+\makeatother
+
+\usepackage{xpatch}
+\makeatletter
+\xapptocmd\appendix
+  {\xapptocmd\section
+    {\addcontentsline{toc}{section}{\appendixname\ifoneappendix\else~\theappendix\fi: #1}}
+    {}{\InnerPatchFailed}%
+  }
+{}{\PatchFailed}
+\makeatother
+\keywords{social media use, youth, mental health outcomes, behavioral outcomes\newline\indent Word count: 1261}
+\usepackage{csquotes}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Social Media Use in Youth and Related Mental Health and Behavioral Outcomes},
+  pdfauthor={Natalie Cunningham1 \& Reviewer1,2},
+  pdflang={en-EN},
+  pdfkeywords={social media use, youth, mental health outcomes, behavioral outcomes},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Social Media Use in Youth and Related Mental Health and Behavioral Outcomes}
+\author{Natalie Cunningham\textsuperscript{1} \& Reviewer\textsuperscript{1,2}}
+\date{}
+
+
+\shorttitle{Youth Social Media Use}
+
+\authornote{
+
+The authors made the following contributions. Natalie Cunningham: Conceptualization, Writing - Original Draft Preparation, Writing - Review \& Editing; Reviewer: Writing - Review \& Editing, Supervision.
+
+Correspondence concerning this article should be addressed to Natalie Cunningham, 75 E River Pkwy, Minneapolis, MN 55455. E-mail: \href{mailto:cunni734@umn.edu}{\nolinkurl{cunni734@umn.edu}}
+
+}
+
+\affiliation{\vspace{0.5cm}\textsuperscript{1} University of Minnesota\\\textsuperscript{2} Other}
+
+\abstract{%
+Social media is becoming a new constant in the lives of high school youth, inducing worry among the public regarding the potential behavioral and mental health outcomes that social media use may have on adolescents. More research is required to fully understand the impact that social media use has on the adolescent brain and behavior, and should continue to be conducted as technology advances. This study looks at the relationship between social media and impulsivity, depression, and anxiety in high school youth through simulated data created by means of the 2023 Monitoring the Future continuing study conducted on eighth and tenth grade participants by the University of Michigan. Through the simulated data, it was found that there were no statistically significant relationships between social media use and the measured mental health and behavioral outcomes, nor was social media use seen as a predictor of these outcomes. However, with raw data, different results may be observed in these regards, and further analysis should be done on the raw data to assess these relationships.
+}
+
+
+
+\begin{document}
+\maketitle
+
+\section{Introduction}\label{introduction}
+
+Technology is rapidly advancing and becoming more accessible to the adolescents of ours and future generations. With this accessibility, the doors to social media access and use are wide open to youth. Simultaneously, however, mental health and behavioral issues among youth are being more widely addressed. Many claims have been made that social media, and media use in general, have negative effects on children's well-being. New trends related to parenting methods with regards to technology access are widespread, and concern grows as younger and younger generations seem to be awarded access to technologies that appear to be harmful. These technologies and media platforms will continue to evolve, and, therefore, it is becoming increasingly necessary to understand the psychological impacts of these growing entities on youth. For the sake of this notion, I analyzed how social media use parallels adolescent levels of mental health and behavioral outcomes, specifically impulsivity, depression, and anxiety. The focus of this study is to use reproducible workflows to examine these relationship among a population of high-school aged youth.
+
+Three hypotheses were created for how I expected social media use to impact impulsivity, depression, and anxiety in the surveyed participants. All three hypotheses infer that social media use will be positively correlated with each outcome, respectively, so higher use of social media will correspond with higher levels of impulsivity, depression, and anxiety.
+
+To asses these, analyses were done on a simulated data set compiled referencing the data codebook from the 2023 Monitoring the Future Main Study, conducted on eighth and tenth grade participants by the University of Michigan {[}insert citation{]}. The hypotheses were analyzed using the simulated data to outline the procedure and method by which these research questions could be assessed in a reproducible manner. This project also provides the foundation structure for future analysis of the hypotheses without the confines of simulated data and instead with the provided raw data from which the simulated data set was formulated.
+
+\section{Methods}\label{methods}
+
+The current study was not preregistered and raw data was not collected or analyzed. Simulated data was created based on raw data from the 2023 study on eighth and tenth graders from the ``Monitoring the Future'' continuing study. Simulated data and code are available at \href{https://github.com/cunningpsych/Social-Media-Use_in_Youth}{this hyperlink to the github repository}.
+
+\subsection{Participants}\label{participants}
+
+\begin{table}[tbp]
+
+\begin{center}
+\begin{threeparttable}
+
+\caption{\label{tab:demographics table}Demographics}
+
+\begin{tabular}{lcc}
+\toprule
+Category & \multicolumn{1}{c}{n} & \multicolumn{1}{c}{\%}\\
+\midrule
+Race &  & \\
+\ \ \ \ Black & 2194 & 14.89\\
+\ \ \ \ White & 5328 & 36.16\\
+\ \ \ \ Hispanic & 2792 & 18.95\\
+Gender &  & \\
+\ \ \ \ Female & 6170 & 41.88\\
+\ \ \ \ Male & 6392 & 43.38\\
+\ \ \ \ Other & 731 & 4.96\\
+\ \ \ \ Prefer Not to Answer & 704 & 4.78\\
+Grade Level &  & \\
+\ \ \ \ Eighth Grade & 5956 & 40.42\\
+\ \ \ \ Tenth Grade & 8778 & 59.58\\
+Residence &  & \\
+\ \ \ \ Farm & 5012 & 34.02\\
+\ \ \ \ Country & 1515 & 10.28\\
+\ \ \ \ City & 7470 & 50.7\\
+\bottomrule
+\addlinespace
+\end{tabular}
+
+\begin{tablenotes}[para]
+\normalsize{\textit{Note.} From simulated sample population. N = 14,734}
+\end{tablenotes}
+
+\end{threeparttable}
+\end{center}
+
+\end{table}
+
+The sample used in this current study is a simulated data set based on the 2023 data codebook from the ``Monitoring the Future'' continuing study of different aspects and behaviors of high school students {[}insert citation{]}. The original data set consisted of 14734 participants in either eighth or tenth grade. The simulated data set, in turn, also included 14734 simulated participants, with 36.16\% identifying as white, 40.42\% in eighth grade, and 59.58\% in tenth grade.
+
+\subsection{Procedure}\label{procedure}
+
+All demographics and measures were simulated in accordance with the codebook provided on the Monitoring the Future website {[}insert citation{]}. The codebook additionally provided the distributions for all recorded variables, which was used to determine scoring distributions for each simulated measure. For the sake of creating scales for outcome measures, a numerical scale was created, with higher values indicating higher levels of each outcome. Due to the nature of the data being entirely simulated, using Cronbach's alpha values to assess the reliability of the social media use, impulsivity, depression, and anxiety measures are not particularly informative (alpha =0.01, -0.01, 0.01, -0.03 respectively). These values are not very promising in terms of the internal reliability of the measure scales, however, with the use of genuine raw data, we may observe more favorable results.
+
+\section{Results}\label{results}
+
+Given the bounds to work with raw data, I would plan to explore how social media use is related to impulsivity, depression, and anxiety among adolescents. With the simulated data, I was able to calculate Pearson's r correlations, conduct t-tests, and create regression models to connect the simulated social media use with each behavioral and mental health outcome and how each outcome differs between eighth and tenth graders.
+
+For the sake of finding significance in the correlations between measures, 0.05 was use as a threshold for the p-values. Simulated social media use and impulse control were found to be weakly negatively correlated with a p-value above the threshold, indicating that either the nature of the simulated data is not representative of authentic data or the hypothesis that social media use and impulsivity are positively correlated can likely be disproved (Pearson's r = -0.01, \emph{p} = 0.56). Social media use and depression values were weakly positively correlated with a p-value above the threshold, indicating that while the correlation is positive, as predicted, it is not a strong relationship (Pearson's r = 0.00, \emph{p} = 0.73). Lastly, it was found that social media use and anxiety are weakly negatively correlated based on the simulated data, also indicating a weak relationship that can disprove the hypothesis formed for social media use and anxiety or an inaccurate representation of how the measures can be seen using raw data and participants (Pearson's r = -0.01, \emph{p} = 0.59).
+
+T-tests were performed to compare how participants scored on social media use, impulsivity, depression, and anxiety scales based on grade level. Most items were scored on a scale from 1 to 5, with 1 being lower levels of the measure and 5 being high levels of the measure. For social media use, there was not a particularly large observed difference between how eighth and tenth graders were scoring, with the average groups means at 3.87 and 3.87 for eighth and tenth grade, respectively (t-statistic = -0.14, \emph{p} = 0.89). Similar results were found for impulsivity, and while the difference between the grade levels was found to be higher, the average scores were also quite similar, at 2.03 and 2.03 for eighth and tenth grade, and the p-value denoted a lack of significance (t-statistic = 1.08, \emph{p} = 0.28). The depression measure also saw comparable results, with average scores of 2.61 and 2.60 (t-statistic = 0.86, \emph{p} = 0.39). Comparing the grade levels on the anxiety measure again saw similar group means for the measure separated by grade, with eighth and tenth graders averaging scores of 3.53 and 3.50, respectively (t-statistic = 1.72, \emph{p} = 0.09). Overall, these results showed very little difference between how eighth and tenth graders scored on any of the simulated behavioral or mental health measures.
+
+\pandocbounded{\includegraphics[keepaspectratio]{Social-Media-Use_in_Youth_2025-11-18_files/figure-latex/box plot-1.pdf}}
+
+Regression models were the last phase of analyses performed, used to assess whether social media use could predict the mental health and behavioral outcomes of impulsivity, depression, and anxiety, that were measured. Based on the simulated data analyses, social media use was found to not be a possible predictor or impulsivity, depression, or anxiety, although we may expect to see different results using raw data. For social media use as a predictor of impulsivity, the regression coefficient was -0.0036 (\emph{p} = 0.56). Regarding social media use as a predictor of depression, the regression coefficient was 0.00 (\emph{p} = 0.73). For the last of the models, social media use was analyzed as a predictor of anxiety, of which the regression coefficient was -0.01 (\emph{p} = 0.59). Overall, from analyzing simulated data of the observed measures, no significant relationships were found between youth social media use and impulsivity, depression, or anxiety, and no significant differences were found between how eighth and tenth grade participants scored on the measures.
+
+\section{Discussion}\label{discussion}
+
+The purpose of this study was to mimic the workflow involved in creating reproducible research projects. All analyses were done using simulated data, so results are not representative of the true relationships between these variables that is observed in the raw data from 2023. Through the simulated analyses, no significant relationships between social media use and impulsivity, depression, or anxiety were noted, nor was a difference found between how eighth and tenth grade participants score on any of the observed measures. Therefore, none of the study hypotheses were supported by the simulated data.
+
+\newpage
+
+\section{References}\label{references}
+
+\phantomsection\label{refs}
+
+
+\end{document}
