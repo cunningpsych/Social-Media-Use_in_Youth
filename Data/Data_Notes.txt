@@ -4,4 +4,5 @@
 ##### First created 2025/10/20
 
 Since this project's purpose is for understanding reproducible research workflow options, no raw data is being used at this time.
-A data dictionary and simulated data set can be found in this folder of the project.
+A data dictionary and simulated data set can be found in this folder of the project. The RScript file for the making of the simulated data set can be found under 'Code.'
+The simulated data set will need to be downloaded in order to review the finished analyses or conduct any additional analyses.
