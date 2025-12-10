@@ -1,4 +1,6 @@
-##### XXXX Project
+##### Social Media Use in Youth Project
 ##### Code Notes
 ##### A file for internal project notes about project code
-##### First created XXXX
+##### First created Oct. 20, 2025
+
+This folder contains the code script for the creation of the simulated data set used for analyses. The creation of the simulated data set was based on a data dictionary that can be found under the 'Data' file folder. The RScript file is not necessary for reviewing the analyses, just the output simulated dataset itself.
